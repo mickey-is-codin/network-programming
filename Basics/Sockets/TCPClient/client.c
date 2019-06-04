@@ -12,7 +12,6 @@ int main(int argc, char ** argv) {
     printf("Beginning program execution...\n");
 
     int client_socket = socket(AF_INET, SOCK_STREAM, 0);
-    printf("Clientside socket() command returned: %d\n", client_socket);
 
     struct sockaddr_in server_address = {
         .sin_family =      AF_INET,
@@ -25,7 +24,10 @@ int main(int argc, char ** argv) {
         (struct sockaddr * ) &server_address,
         sizeof(server_address)
     );
-    printf("connect() command returned: %d\n", connection_success);
+    if (connection_success != 0) {
+        printf("Client failed to connect\n");
+        return EXIT_FAILURE;
+    }
 
     char received_response[256];
     recv(client_socket, &received_response, sizeof(received_response), 0);

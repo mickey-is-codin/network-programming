@@ -12,7 +12,6 @@ int main(int argc, char ** argv) {
     char server_message[256] = "You have reached the server";
 
     int server_socket = socket(AF_INET, SOCK_STREAM, 0);
-    printf("Serverside socket() command returned: %d\n", server_socket);
 
     struct sockaddr_in server_address = {
         .sin_family =      AF_INET,
@@ -25,7 +24,10 @@ int main(int argc, char ** argv) {
         (struct sockaddr *) &server_address,
         sizeof(server_address)
     );
-    printf("bind() command returned: %d\n", bind_success);
+    if (bind_success != 0) {
+        printf("Server failed to bind\n");
+        return EXIT_FAILURE;
+    }
 
     listen(server_socket, 8);
 
