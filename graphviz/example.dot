@@ -1,0 +1,9 @@
+graph {
+    ben -- branson
+    branson -- gina
+    jillian -- ben
+    edgar -- ben
+    edgar -- gina
+    branson -- edgar
+    juliana -- jillian
+}
